@@ -13,6 +13,7 @@ import {
   type FoodParticle,
 } from '../sim/food';
 import { drawFish, drawFoodParticle } from './shapes';
+import { drawDecorations } from './decorations';
 import { happiness, LOW_STAT_THRESHOLD, FEED_HUNGER_BOOST, clamp } from '../state/decay';
 
 const TARGET_FPS = 30;
@@ -132,14 +133,17 @@ export function startTank(
 
   function render() {
     renderCount++;
+    const b = bounds();
+    const wallNow = Date.now();
+
     ctx.fillStyle = '#0a2a3d';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+    drawDecorations(ctx, b, wallNow);
 
     for (const particle of foodParticles) {
       drawFoodParticle(ctx, particle);
     }
 
-    const wallNow = Date.now();
     for (const f of getFish()) {
       if (f.status !== 'active') continue;
       const runtime = runtimes.get(f.id);

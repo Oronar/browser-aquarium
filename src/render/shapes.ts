@@ -105,7 +105,11 @@ export function drawFish(
 /** Small flat fleck of sinking food (NFR-3: minimalist, flat shapes). */
 export function drawFoodParticle(ctx: CanvasRenderingContext2D, particle: FoodParticle): void {
   ctx.beginPath();
-  ctx.fillStyle = '#d9a441';
   ctx.arc(particle.x, particle.y, 3, 0, Math.PI * 2);
+  ctx.fillStyle = '#d9a441';
   ctx.fill();
+  // A thin outline keeps it visible once it sinks near the similarly-toned sand.
+  ctx.strokeStyle = 'rgba(10, 20, 10, 0.45)';
+  ctx.lineWidth = 1;
+  ctx.stroke();
 }
